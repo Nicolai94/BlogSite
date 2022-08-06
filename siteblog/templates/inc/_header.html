@@ -1,0 +1,16 @@
+{% load menu %}
+
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="logo">
+                    <h2><a href="{% url 'home' %}"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Python_icon_%28black_and_white%29.svg/32px-Python_icon_%28black_and_white%29.svg.png"></a></h2>
+                </div>
+            </div>
+            <div class="col-md-10">
+                {% show_menu %}
+            </div>
+        </div>
+    </div>
+</header>

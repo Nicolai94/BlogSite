@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ title }} :: {{ block.super }}{% endblock title %}
+{% block content %}
+<section class="bg-text-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="bg-text">
+                    <h3>Nicolai Pashkevich</h3>
+                    <p>Python Developer</p>
+                    <p>Python, Django, SQL, HTML, CSS </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="blog-post-area">
+    <div class="container">
+        <div class="row">
+            <div class="blog-post-area-style">
+                <div class="col-md-12">
+                    <div class="single-post-big">
+                        <div class="big-image">
+                            <img src="https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/content/cover_image_file/cover_image/936807/retina_1708x683_cover-Redesign-DjangoMistakes-Luke_Newsletter-583fce40c721c48192c477deff31dc42-68f8b5b282f890fd6c1888a8e381f130.png" alt="">
+                        </div>
+                        <div class="big-text">
+                            <h3><a href="#">About Me</a></h3>
+                            <p>
+Hi! My name is Nicolai Pashkevich. I am a Back-End Web Developer, and I'm very passionate and dedicated to my work.
+I created around 10 websites using (HTML, CSS, Python and Django).
+I can complete a project individually and handle multiple projects and satisfy the client software requirements and complete the project on a timeline, I want to gain more knowledge and Experience. I'm Developer and a Good Learner with a positive attitude and wants to learn new things.
+Passionate for learning & exploring new Tech.
+                            </p>
+                            <h4><span class="date">05.08.2022</span><span class="author">Posted By: <span class="author-name">Nicolai Pashkevich</span></span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                {% for post in posts %}
+                <div class="col-md-3">
+                    <div class="single-post">
+                        {% if post.photo %}
+                        <img class="mr-3" src="{{ post.photo.url }}" alt="{{ post.title }}" >
+                        {% else %}
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg" alt="{{ post.title }}"
+                             width="300" height="201" class="mr-3">
+                        {% endif %}
+                        <h3><a href="{{ post.get_absolute_url}}">{{ post.title }}</a></h3>
+                        <h4><span>Posted By: <span class="author-name">{{ post.author }}</span></span>
+                        </h4>
+                        {{ post.content|truncatewords_html:20|safe }}
+                        <h4><span>{{ post.created_at|date:'d.m.Y' }}</span></h4>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% if page_obj.has_other_pages %}
+    <div class="pegination">
+        <div class="nav-links">
+
+            {% for p in page_obj.paginator.page_range %}
+                {% if page_obj.number == p %}
+                    <span class="page-numbers current">{{ p }}</span>
+                {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                    <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a class="page-numbers" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</section>
+
+{% endblock content %}
